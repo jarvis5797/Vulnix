@@ -10,10 +10,16 @@ except:
     print(col("Installing Requirements..." , 'red'))
 def ip_grabber(host_ip):
     global victim_ip
-    print(col("Ip_found\n",'green')+os.popen("nmap -sV "+host_ip+" | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'").read())
-    victim_ip=input(col('Enter your vm_ip : ' , 'blue'))
+    try:
+        print(col("Ip_found\n",'green')+os.popen("nmap -sV "+host_ip+" | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'").read())
+        victim_ip=input(col('Enter your vm_ip : ' , 'blue'))
+    except:
+        print(col("Looks like you entered a wrong host_ip..." , 'red'))
 host_ip=input(col("Enter your host_ip : ", "blue"))
 ip_grabber(host_ip)
 def scanner(victim_ip):
-    print(col(os.popen("nmap "+victim_ip).read(),'green'))
+    try:
+        print(col(os.popen("nmap "+victim_ip+" | grep open").read() , 'green'))
+    except:
+        print(col("Seems as host is down at "+victim_ip , 'red'))
 scanner(victim_ip)
