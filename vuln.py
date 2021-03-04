@@ -9,6 +9,11 @@ try:
 except:
     print(col("Installing Requirements..." , 'red'))
 def ip_grabber(host_ip):
-    print(os.popen("nmap -sV "+host_ip+" | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'").read())
+    global victim_ip
+    print(col("Ip_found\n",'green')+os.popen("nmap -sV "+host_ip+" | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'").read())
+    victim_ip=input(col('Enter your vm_ip : ' , 'blue'))
 host_ip=input(col("Enter your host_ip : ", "blue"))
 ip_grabber(host_ip)
+def scanner(victim_ip):
+    print(col(os.popen("nmap "+victim_ip).read(),'green'))
+scanner(victim_ip)
